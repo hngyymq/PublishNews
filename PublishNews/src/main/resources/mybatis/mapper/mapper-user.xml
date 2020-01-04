@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xian.mapper.admin.UserMapper">
-
+<mapper namespace="com.ymq.dao.UserDao">
+	
+		<resultMap id="BaseResultMap" type="com.ymq.bean.User">
+	        <id column="id" jdbcType="INTEGER" property="id"/>
+	        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+	        <result column="user_account" jdbcType="VARCHAR" property="userAccount"/>
+	        <result column="user_psw" jdbcType="VARCHAR" property="userPsw"/>
+	        <result column="role" jdbcType="CHAR" property="role"/>
+        </resultMap>
     <!-- <resultMap id="BaseResultMap" type="com.xian.entity.admin.User">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
@@ -28,6 +35,7 @@
         <collection property="roleList" ofType="com.xian.entity.admin.Role" column="id" select="getRoleList"/>
     </resultMap>
     
+    
     <select id="getDepartment" parameterType="java.lang.Integer" resultType="com.xian.entity.admin.Department">
   	  SELECT * FROM admin_department WHERE id=#{department_id}
     </select>
@@ -44,5 +52,16 @@
         <include refid="Base_Column_List"/>
         from admin_user
     </select> -->
- 
+    
+ 	<select id="queryUser"  resultMap="BaseResultMap">
+  	  SELECT * FROM user where user_account=#{userAccount} and user_psw=#{userPsw} and role=#{role}
+    </select>
+    
+    <insert id="insertUser" parameterType="com.ymq.bean.User">
+    	insert into user(user_name,user_account,user_psw,role) values(#{userName},#{userAccount},#{userPsw},#{role});
+    </insert>
+    
+    <update id="updateUser" >
+    	update user set user_name=#{userName},user_psw=#{userPsw} where id =#{id}
+    </update>
 </mapper>

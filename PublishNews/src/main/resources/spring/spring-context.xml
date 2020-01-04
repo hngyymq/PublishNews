@@ -19,6 +19,7 @@
                  <value>classpath*:mybatis/mapper/mapper-*.xml</value>
             </list>
         </property>
+        <!-- <property name="typeAliasesPackage" value="classpath:com.ymq.bean"/> -->
     </bean>
     
     <!-- mapper映射 -->

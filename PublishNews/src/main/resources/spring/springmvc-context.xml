@@ -36,6 +36,26 @@
 	    </property>  
 	</bean>  
     
+    <!-- 配置拦截器 -->
+	<mvc:interceptors>
+	<mvc:interceptor>
+			<!-- 拦截所有mvc控制器 -->
+			<mvc:mapping path="/**"/>
+			<!-- mvc:exclude-mapping是另外一种拦截，它可以在你后来的测试中对某个页面进行不拦截，这样就不用在
+				LoginInterceptor的preHandler方法里面获取不拦截的请求uri地址了(优选) -->
+			<mvc:exclude-mapping path="/toLogin" />
+			<mvc:exclude-mapping path="/toRegister" />
+			<mvc:exclude-mapping path="/login" />
+			<mvc:exclude-mapping path="/register" />
+			<mvc:exclude-mapping path="/assets/**" />
+			<mvc:exclude-mapping path="/font/**" />
+			<mvc:exclude-mapping path="/layui/**" />
+			<mvc:exclude-mapping path="/mycss/**" />
+			<mvc:exclude-mapping path="/myjs/**" />
+			<bean class="com.ymq.interceptor.LoginInterceptor"></bean>			
+		</mvc:interceptor>
+	</mvc:interceptors>
+    
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>
 </beans>
